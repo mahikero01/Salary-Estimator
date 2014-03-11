@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Salary Compute.html</title>
+	<script>
+	var fltHalfMonthBasic;var fltNoneTaxIncome;var intTaxCode;var fltAMA;var fltPMA;var fltGYA;var fltAMB;var fltPMB;var fltGYB;var fltRDO;var fltLegHol;var fltSplHol;var fltUnpND;var intGYSts=0;var fltMealAdj=0;var fltTotalDaysA;var fltTotalDaysB;var fltTotalDays=0;var fltTotalRDO;var fltTotalLv;var fltTotalCalendarDays;var fltTotalNDHours;var fltBasicPay;var fltDailyRate;var fltHourlyRate;var fltNDPerHourRate;var fltNDTotalCost;var fltMealCost;var fltLegHolRate;var fltSplHolRate;var fltTaxableIncome=0;var fltWithholdingTax;var fltNetIncome=0;var arrGYSts=new Array(0,6,2,4);var arrTaxTable=new Array();arrTaxTable[0]=new Array();arrTaxTable[1]=new Array();arrTaxTable[2]=new Array();arrTaxTable[3]=new Array();arrTaxTable[4]=new Array();arrTaxTable[5]=new Array();var arrTaxTable2=new Array();arrTaxTable2[0]=new Array();arrTaxTable2[1]=new Array();arrTaxTable2[2]=new Array();arrTaxTable2[3]=new Array();arrTaxTable2[4]=new Array();arrTaxTable2[5]=new Array();arrTaxTable2[6]=new Array();arrTaxTable2[7]=new Array();function iniTaxTable(){arrTaxTable[0][0]=1;arrTaxTable[0][1]=0;arrTaxTable[0][2]=417;arrTaxTable[0][3]=1250;arrTaxTable[0][4]=2917;arrTaxTable[0][5]=5833;arrTaxTable[0][6]=10417;arrTaxTable[0][7]=20833;arrTaxTable[1][0]=1;arrTaxTable[1][1]=2083;arrTaxTable[1][2]=2500;arrTaxTable[1][3]=3333;arrTaxTable[1][4]=5000;arrTaxTable[1][5]=7917;arrTaxTable[1][6]=12500;arrTaxTable[1][7]=22917;arrTaxTable[2][0]=1;arrTaxTable[2][1]=3125;arrTaxTable[2][2]=3542;arrTaxTable[2][3]=4375;arrTaxTable[2][4]=6042;arrTaxTable[2][5]=8958;arrTaxTable[2][6]=13542;arrTaxTable[2][7]=23958;arrTaxTable[3][0]=1;arrTaxTable[3][1]=4167;arrTaxTable[3][2]=4583;arrTaxTable[3][3]=5417;arrTaxTable[3][4]=7083;arrTaxTable[3][5]=10000;arrTaxTable[3][6]=14583;arrTaxTable[3][7]=25000;arrTaxTable[4][0]=1;arrTaxTable[4][1]=5208;arrTaxTable[4][2]=5625;arrTaxTable[4][3]=6458;arrTaxTable[4][4]=8125;arrTaxTable[4][5]=11042;arrTaxTable[4][6]=15625;arrTaxTable[4][7]=26042;arrTaxTable[5][0]=1;arrTaxTable[5][1]=6250;arrTaxTable[5][2]=6667;arrTaxTable[5][3]=7500;arrTaxTable[5][4]=9167;arrTaxTable[5][5]=12083;arrTaxTable[5][6]=16667;arrTaxTable[5][7]=27083}function iniTaxTable2(){arrTaxTable2[0][0]=0;arrTaxTable2[0][1]=0;arrTaxTable2[1][0]=0;arrTaxTable2[1][1]=0.05;arrTaxTable2[2][0]=20.83;arrTaxTable2[2][1]=0.1;arrTaxTable2[3][0]=104.17;arrTaxTable2[3][1]=0.15;arrTaxTable2[4][0]=354.17;arrTaxTable2[4][1]=0.2;arrTaxTable2[5][0]=937.5;arrTaxTable2[5][1]=0.25;arrTaxTable2[6][0]=2083.33;arrTaxTable2[6][1]=0.3;arrTaxTable2[7][0]=5208.33;arrTaxTable2[7][1]=0.32}function totalWorkDays(){fltAMA=parseFloat(document.frmSalary.txbAMA.value);fltPMA=parseFloat(document.frmSalary.txbPMA.value);fltGYA=parseFloat(document.frmSalary.txbGYA.value);fltAMB=parseFloat(document.frmSalary.txbAMB.value);fltPMB=parseFloat(document.frmSalary.txbPMB.value);fltGYB=parseFloat(document.frmSalary.txbGYB.value);fltTotalDaysA=(fltAMA+fltPMA+fltGYA)/2;fltTotalDaysB=(fltAMB+fltPMB+fltGYB)/2;fltTotalDays=fltTotalDaysA+fltTotalDaysB}function totalNDHours(){fltTotalNDHours=fltGYA*4;fltTotalNDHours+=fltGYB*4;fltTotalNDHours+=fltAMA;fltTotalNDHours+=fltUnpND;fltTotalNDHours-=arrGYSts[intGYSts]}function totalCalendarDays(){fltRDO=parseFloat(document.frmSalary.txbRDO.value);fltTotalCalendarDays=fltTotalDays+fltRDO}function quickTotalDaysUpdate(){var a;a="=&nbsp;&nbsp;";a+=fltTotalDays;document.getElementById("outTotalWorkDays").innerHTML=a;a="Total Calendar Days&nbsp;&nbsp;&nbsp;";a+=fltTotalCalendarDays;document.getElementById("outTotalCalendarDays").innerHTML=a}function runAllTotalDays(){totalWorkDays();totalCalendarDays();quickTotalDaysUpdate()}function radGYStsOnClick(a){var b=true;intGYSts=a;onChangeInput();return b}function getAllUserInput(){fltHalfMonthBasic=parseFloat(document.frmSalary.txbHalfMonthBasic.value);intTaxCode=parseFloat(document.frmSalary.selTaxCode.value);totalWorkDays();fltNoneTaxIncome=parseFloat(document.frmSalary.txbNoneTaxIncome.value);fltRDO=parseFloat(document.frmSalary.txbRDO.value);fltLegHol=parseFloat(document.frmSalary.txbLegHol.value);fltSplHol=parseFloat(document.frmSalary.txbSplHol.value);fltUnpND=parseFloat(document.frmSalary.txbUnpND.value);intGYSts=parseInt(intGYSts);fltMealAdj=parseFloat(document.frmSalary.txbMealAdj.value);totalNDHours()}function setDecimal(a){var b;b=Math.round(a*100)/100;return b}function computeMonthlyRate(){fltBasicPay=fltHalfMonthBasic*2}function computeDailyRate(){fltDailyRate=setDecimal(fltBasicPay*12/261)}function computeHourlyRate(){fltHourlyRate=setDecimal(fltDailyRate/8)}function computeNDPerHourRate(){fltNDPerHourRate=fltHourlyRate*0.1}function computeNDAddRate(){fltNDTotalCost=setDecimal(fltTotalNDHours*fltNDPerHourRate)}function computeMealAllow(){var a=parseInt(fltTotalDays);fltMealCost=a*110;fltMealCost+=fltMealAdj}function computeHolidayRate(){fltLegHolRate=setDecimal(fltLegHol*fltHourlyRate*1);fltSplHolRate=setDecimal(fltSplHol*fltHourlyRate*0.3)}function computeTaxableIncome(){fltTaxableIncome=fltHalfMonthBasic+fltMealCost+fltLegHolRate+fltSplHolRate+fltNDTotalCost}function computeWithholdingTax(){var a=0;var b;while(true){if(fltTaxableIncome>=arrTaxTable[intTaxCode][a]&&a<arrTaxTable[intTaxCode].length){a++;continue}else{a--;fltWithholdingTax=arrTaxTable2[a][0];fltWithholdingTax+=(fltTaxableIncome-arrTaxTable[intTaxCode][a])*arrTaxTable2[a][1];b=setDecimal(fltWithholdingTax);fltWithholdingTax=b;break}}}function computeNetIncome(){fltNetIncome=setDecimal(fltTaxableIncome+fltNoneTaxIncome-fltWithholdingTax)}function computeAll(){computeMonthlyRate();computeDailyRate();computeHourlyRate();computeNDPerHourRate();computeNDAddRate();computeMealAllow();computeHolidayRate();computeTaxableIncome();computeWithholdingTax();computeNetIncome()}function showResult(){var a=new Array();var b=" ";a[0]=new Array();a[0][0]="Your Daily Rate";a[0][1]="  ==  ";a[0][2]=fltDailyRate;a[1]=new Array();a[1][0]="Your Hourly Rate";a[1][1]="  ==  ";a[1][2]=fltHourlyRate;a[2]=new Array();a[2][0]="ND add / hour";a[2][1]="  ==  ";a[2][2]=fltNDPerHourRate;a[3]=new Array();a[3][0]="Meal Allowance";a[3][1]="  ==  ";a[3][2]=fltMealCost;a[4]=new Array();a[4][0]="Total ND Hours";a[4][1]="  ==  ";a[4][2]=fltTotalNDHours;a[5]=new Array();a[5][0]="Total ND Cost";a[5][1]="  ==  ";a[5][2]=fltNDTotalCost;a[6]=new Array();a[6][0]="Sp Holiday 30%";a[6][1]="  ==  ";a[6][2]=fltSplHolRate;a[7]=new Array();a[7][0]="Lg Holiday 100%";a[7][1]="  ==  ";a[7][2]=fltLegHolRate;a[8]=new Array();a[8][0]="Taxable Income";a[8][1]="  ==  ";a[8][2]=fltTaxableIncome;a[9]=new Array();a[9][0]="Withholding Tax";a[9][1]="  ==  ";a[9][2]=fltWithholdingTax;a[10]=new Array();a[10][0]="Net Income";a[10][1]="  ==  ";a[10][2]=fltNetIncome;a[11]=new Array();a[11][0]="Unpaid ND";a[11][1]="  ==  ";a[11][2]=arrGYSts[intGYSts];b+="<table>";for(row=0;row<12;row++){b+="<tr>";for(col=0;col<3;col++){b+="<td>"+a[row][col]+"</td>"}b+="</tr>"}b+="</table>";document.getElementById("salaryResult").innerHTML=b}function onChangeInput(){iniTaxTable();iniTaxTable2();runAllTotalDays();getAllUserInput();computeAll();showResult()};
+	</script>
+</head>
+<body>    
+    
+    <h1>Salary Compute</h1>
+
+    <div id="inputArea">
+        <form action="" name="frmSalary">
+        
+            <h4>Income Info</h4>
+            <label name="lblHalfMonthBasic" for="txbHalfMonthBasic">Half Month Basic</label>
+			<input type="text" name="txbHalfMonthBasic" id="txbHalfMonthBasic" size="8" maxlength="8" tabindex="1" value="0" onchange="onChangeInput()" />
+            <label name="lblTaxCode" for="selTaxCode">Tax Code</label>
+            <select name="selTaxCode" id="selTaxCode" tabindex="2" onchange="onChangeInput()">
+                <option value="0">Z</option>
+                <option value="1" selected="selected">S / ME</option>
+                <option value="2">ME1 / S1</option>
+                <option value="3">ME2 / S2</option>
+                <option value="4">ME3 / S3</option>
+                <option value="5">ME4 / S4</option>
+            </select>
+            
+            <br /><br />
+            
+            <label name="lblNoneTaxIncome" for="txbNoneTaxIncome">None Taxable Income</label>
+         <input type="text" name="txbNoneTaxIncome" id="txbNoneTaxIncome" size="10" maxlength="10" tabindex="3" value="0" onchange="onChangeInput()" />
+            
+            
+            <br />
+            
+			<h4>Work Days</h4>
+            <label name="lblAMA" for="txbAMA">AM A</label>
+			<input type="text" name="txbAMA" id="txbAMA" size="2" maxlength="2" tabindex="4" value="0" onchange="onChangeInput()" />
+            <label name="lblPMA" for="txbPMA">PM A</label>
+			<input type="text" name="txbPMA" id="txbPMA" size="2" maxlength="2" tabindex="5" value="0" onchange="onChangeInput()" />
+			<label name="lblGYA" for="txbGYA">GY A</label>
+			<input type="text" name="txbGYA" id="txbGYA" size="2" maxlength="2" tabindex="6" value="0" onchange="onChangeInput()" />
+            
+            <br />
+            
+            <label name="lblAMB" for="txbAMB">AM B</label>
+			<input type="text" name="txbAMB" id="txbAMB" size="2" maxlength="2" tabindex="7" value="0" onchange="onChangeInput()" />
+			<label name="lblPMB" for="txbPMB">PM B</label>
+			<input type="text" name="txbPMB" id="txbPMB" size="2" maxlength="2" tabindex="8" value="0" onchange="onChangeInput()" />
+			<label name="lblGYB" for="txbGYB">GY B</label>
+			<input type="text" name="txbGYB" id="txbGYB" size="2" maxlength="2" tabindex="9" value="0" onchange="onChangeInput()" />
+            <label id="outTotalWorkDays"> </label>
+            
+            <br />
+            
+			<h4>Rest Days</h4>
+			<label name="lblRDO" for="txbRDO">RDO</label>
+			<input type="text" name="txbRDO" id="txbRDO" size="2" maxlength="2" tabindex="10" value="0" onchange="onChangeInput()" />
+            <label id="outTotalCalendarDays"> </label>
+        
+            <br />
+        
+            <h4>Holiday Duty</h4>
+            <label name="lblLegHol" for="txbLegHol">Legal Holiday (hour/s)</label>
+			<input type="text" name="txbLegHol" id="txbLegHol" size="2" maxlength="2" tabindex="11" value="0" onchange="onChangeInput()" />
+            <label name="lblSplHol" for="txbSplHol">Special Holiday (hour/s)</label>
+			<input type="text" name="txbSplHol" id="txbSplHol" size="2" maxlength="2" tabindex="12" value="0" onchange="onChangeInput()" />
+            
+            <br />
+            
+			<h4>Meal Adjustment and Night Differential Variance</h4>
+			<input type="text" name="txbMealAdj" id="txbMealAdj" size="10" maxlength="10" tabindex="13" value="0" onchange="onChangeInput()" />
+            <label name="lblMealAdj" for="txbMealAdj">Meal Allowance Adjustment(Peso value including centavos)  </label>
+			
+			   <br /><br />
+			
+            <input type="text" name="txbUnpND" id="txbUnpND" size="2" maxlength="2" tabindex="14" value="0" onchange="onChangeInput()" />
+			<label name="lblUnpND" for="txbUnpND">Unpaid ND from previous month/s(hour/s)  </label>
+           			
+            <br /><br />
+             
+            <label name="lblGYSts" for="radGYSts">Last Day of Month GY Status:</label>
+            <br />   
+            <input type="radio" name="radGYSts" tabindex="17" value="0" checked="checked" onclick="return radGYStsOnClick(0)" />RDO/LV/Not GY Duty(no deduction)<br />
+            <input type="radio" name="radGYSts" tabindex="17" value="1" onclick="return radGYStsOnClick(1)" />Duty(-6 hours)<br />
+            <input type="radio" name="radGYSts" tabindex="17" value="2" onclick="return radGYStsOnClick(2)" />GY A (-2 hours)<br />
+            <input type="radio" name="radGYSts" tabindex="17" value="3" onclick="return radGYStsOnClick(3)" />GY B (-4 hours)<br />
+        </form>      
+    </div>
+    <div id="resultArea">
+        <br /><br />
+        <div id="salaryResult">
+        </div>
+    </div>  
+</body>
+<!--
+Version Revision
+
+v 0.35
+-Change value of meal allowance from 100 to 110
+-Added a new textbox named "None Taxable Income" for manual input of non tax income to be able to compute net income
+-Added a new textbox named "Meal Allow Adjustment" for manual input of meal adjustment
+-Added output result named "Net Income"
+-Modified javascript code to be compatible to IE
+-->
+</html>
