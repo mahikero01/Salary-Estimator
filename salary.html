@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Salary Compute.html</title>
+	<script type="text/javascript">
+		//SalaryEstimator Object
+        function SalaryEstimator(){
+            this.fltAMDays;
+            this.fltPMDays;
+            this.fltGYDays;
+            this.fltTotalDays; 
+            this.fltTotalRDO;
+            this.fltTotalCalendarDays;
+            
+            
+            this.fltBasicPay;
+            this.fltDailyRate;
+            this.fltHourlyRate;
+            this.fltNDAddPerHour;
+            this.intNDDays;
+            this.intNDType;
+            this.intNDHourAdj;
+            this.intNDTotalHours;
+            this.fltNDTotalCost;
+        }
+        
+        //get input from user and convert to float method
+        SalaryEstimator.prototype.takeInput = function(){
+            var fltHalfBasic;
+            
+            fltHalfBasic = parseFloat(document.getElementById("txbHalfBasic").value);
+            this.fltBasicPay = fltHalfBasic * 2;
+            this.intNDDays = parseInt(document.getElementById("txbNDCount").value);
+            this.intNDType = parseInt(document.getElementById("selNDType").value);
+            this.intNDHourAdj = parseInt(document.getElementById("txbHourAdj").value);;
+        }
+        
+        //daily rate compute method
+        SalaryEstimator.prototype.computeDailyRate = function(){
+            this.fltDailyRate = SalaryEstimator.prototype.setDecimal(this.fltBasicPay * 12 / 261);
+        }
+
+        //hourly rate compute method
+        SalaryEstimator.prototype.computeHourlyRate = function(){
+            this.fltHourlyRate = SalaryEstimator.prototype.setDecimal(this.fltDailyRate / 8);
+        }
+        
+        //ND add per hourl rate compute method
+        SalaryEstimator.prototype.computeNDAddRate = function(){
+            this.fltNDAddPerHour = this.fltHourlyRate * 0.10;
+            this.intNDTotalHours = this.intNDDays * this.intNDType - this.intNDHourAdj;
+            this.fltNDTotalCost = SalaryEstimator.prototype.setDecimal(this.intNDTotalHours * this.fltNDAddPerHour);
+        }
+        
+        //set up decimal to 2
+        SalaryEstimator.prototype.setDecimal = function(fltParValue){
+            var fltValue;
+            fltValue = Math.round(fltParValue*100) / 100;
+            return fltValue;     
+        }
+        //show computed result method
+        SalaryEstimator.prototype.showResult = function(){
+            var tempArray = Array();
+            var innerHTMLTags = " ";
+            
+            tempArray[0] = new Array();    
+            tempArray[0][0] = "Your Daily Rate";
+            tempArray[0][1] = this.fltDailyRate;
+            tempArray[1] = new Array(); 
+            tempArray[1][0] = "Your Hourly Rate";
+            tempArray[1][1] = this.fltHourlyRate;
+            tempArray[2] = new Array(); 
+            tempArray[2][0] = "ND add / hour";
+            tempArray[2][1] = this.fltNDAddPerHour;
+            tempArray[3] = new Array(); 
+            tempArray[3][0] = "Total ND Hours";
+            tempArray[3][1] = this.intNDTotalHours;
+            tempArray[4] = new Array(); 
+            tempArray[4][0] = "Total ND Cost";
+            tempArray[4][1] = this.fltNDTotalCost;
+            
+            
+            innerHTMLTags += "<table border=1>";
+            for(row=0; row<5; row++){
+                innerHTMLTags += "<tr>";
+                for(col=0; col<2; col++){
+                    innerHTMLTags += "<td>" + tempArray[row][col] +"</td>";
+                }    
+                innerHTMLTags += "</tr>";
+            }    
+                
+            innerHTMLTags += "</table>";
+            
+            document.getElementById("salaryResult").innerHTML = innerHTMLTags;
+        }
+
+        //total work days 
+        SalaryEstimator.prototype.totalWorkDays = function(){
+            var strTotalDays;
+            
+            this.fltAMDays = parseFloat(document.getElementById("txbAM").value);
+            this.fltPMDays = parseFloat(document.getElementById("txbPM").value);
+            this.fltGYDays = parseFloat(document.getElementById("txbGY").value);
+            this.fltTotalDays = this.fltAMDays + this.fltPMDays + this.fltGYDays;  
+            strTotalDays = "Total Work Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalDays;
+            document.getElementById("outTotalWorkDays").innerHTML = strTotalDays;
+        }
+        
+        //total rdo 
+        SalaryEstimator.prototype.totalRDO = function(){
+            var strTotalDays;
+            
+            this.fltTotalRDO = parseFloat(document.getElementById("txbRDO").value);
+            strTotalDays = "Total RDO&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalRDO;  
+            document.getElementById("outTotalRDO").innerHTML = strTotalDays;
+          
+        }
+        
+        //total calendar days
+        SalaryEstimator.prototype.totalCalendarDays = function(){
+            var strTotalDays;
+            
+            this.fltTotalCalendarDays = this.intTotalDays + this.fltTotalRDOAndLV;
+            strTotalDays = "Total Calendar Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalCalendarDays;
+            document.getElementById("outTotalCalendarDays").innerHTML = strTotalDays;
+        }
+        
+        //total Nigth Diff
+        SalaryEstimator.prototype.totalCalendarDays = function(){
+            var strTotalDays;
+            
+            this.fltTotalCalendarDays = this.intTotalDays + this.fltTotalRDOAndLV;
+            strTotalDays = "Total Calendar Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalCalendarDays;
+            document.getElementById("outTotalCalendarDays").innerHTML = strTotalDays;
+        }
+        
+        
+        //runnable thread
+        function runThread() {
+            var objectThread = new SalaryEstimator();
+            
+            SalaryEstimator.prototype.totalWorkDays();
+            SalaryEstimator.prototype.totalRDO();
+            SalaryEstimator.prototype.totalCalendarDays();
+            
+            var test = document.getElementById("radNDPend").value;
+            alert(test);
+            
+            //SalaryEstimator.prototype.takeInput()
+            //SalaryEstimator.prototype.computeDailyRate();
+            //SalaryEstimator.prototype.computeHourlyRate();
+            //SalaryEstimator.prototype.computeNDAddRate();
+            //SalaryEstimator.prototype.showResult();
+           
+        } 
+	</script>
+</head>
+    <h1>Salary Compute</h1>
+<body>
+    <div id="inputArea">
+        
+        <h4>Work Days:</h4>
+        <label id="lblAM" for="txbAM">AM</label>
+        <input type="text"
+               id="txbAM"
+               size="2"
+               maxlength="2" 
+               tabindex="1"
+               value="0"
+              
+        />
+        <label id="lblPM" for="txbPM">PM</label>
+        <input type="text"
+               id="txbPM"
+               size="2"
+               maxlength="2" 
+               tabindex="2"
+               value="0"
+              
+        />
+        <label id="lblGY" for="txbGY">GY</label>
+        <input type="text"
+               id="txbGY"
+               size="2"
+               maxlength="2" 
+               tabindex="3"
+               value="0"
+              
+        />
+        <output id="outTotalWorkDays"></output>
+       
+        <br><br>
+        
+        <h4>Rest Days:</h4>
+        <label id="lblRDO" for="txbRDO">RDO</label>
+        <input type="text"
+               id="txbRDO"
+               size="2"
+               maxlength="2" 
+               tabindex="4"
+               value="0"
+              
+        />
+        <output id="outTotalRDO"></output>
+        
+        <br><br>
+        
+        <h4>Leave(VL/SL/EL) Days:</h4>
+        <label id="lblAMA" for="txbAMA">AM A</label>
+        <input type="text"
+               id="txbAMA"
+               size="2"
+               maxlength="2" 
+               tabindex="5"
+               value="0"
+               
+        />
+        <label id="lblPMA" for="txbPMA">PM A</label>
+        <input type="text"
+               id="txbPMA"
+               size="2"
+               maxlength="2" 
+               tabindex="6"
+               value="0"
+               
+        />
+        <label id="lblGYA" for="txbGYA">GY A</label>
+        <input type="text"
+               id="txbGYA"
+               size="2"
+               maxlength="2" 
+               tabindex="7"
+               value="0"
+               
+        />
+        
+        <br>
+        
+        <label id="lblAMB" for="txbAMB">AM B</label>
+        <input type="text"
+               id="txbAMB"
+               size="2"
+               maxlength="2" 
+               tabindex="8"
+               value="0"
+              
+        />
+        <label id="lblPMB" for="txbPMB">PM B</label>
+        <input type="text"
+               id="txbPMB"
+               size="2"
+               maxlength="2" 
+               tabindex="9"
+               value="0"
+               onchange="runThread()"
+               
+        />
+        <label id="lblGYB" for="txbGYB">GY B</label>
+        <input type="text"
+               id="txbGYB"
+               size="2"
+               maxlength="2" 
+               tabindex="10"
+               value="0"
+               onchange="runThread()"
+        />
+        
+        <br>
+        
+        <h4>Night Differential Variance:</h4>
+       
+        Yes
+        <input type="radio"
+               name="radNDPend"
+               id="radNDPend" 
+               value="1"
+               tabindex="10"
+               onclick="runRadioCheck(1)"
+        />
+        No
+        <input type="radio" 
+               name="radNDPend"
+               id="radNDPend" 
+               value="0"
+               checked="checked";
+               tabindex="10"
+               onclick="runRadioCheck(0)"
+        />
+        
+        
+        
+        
+        
+        <output id="outTotalRDO"></output>
+        
+        
+        
+        
+        <output id="outTotalCalendarDays"></output>
+        <br><br><br>
+        <output id="outTotalCalendarDays"></output>
+        
+        
+        <br><br>
+        
+        <label id="lblHalfBasic" for="txbHalfBasic">Enter Half Month Pay</label>
+        <br>
+        <input type="text"
+               id="txbHalfBasic"
+               size="8"
+               maxlength="8" 
+               tabindex="1"
+               value="0"
+        />
+        <br>
+        <label id="lblNDCount" for="txbNDCount">ND days</label>
+        <br>
+        <input type="text"
+               id="txbNDCount"
+               size="2"
+               maxlength="2" 
+               tabindex="2"
+               value="0"
+        />
+        <label id="lblNDType" for="selNDType">ND Type</label>
+        <select id="selNDType" tabindex="3">
+            <option value="8">8 hours</option>
+            <option value="1">1 hour</option>
+        </select>
+        <label id="lblHourAdj" for="txbHourAdj">Hour Adj</label>
+        <input type="text"
+               id="txbHourAdj"
+               size="1"
+               maxlength="1" 
+               tabindex="4"
+               value="0"
+        />
+        <br><br>
+        <button name="btnCompute" tabindex="5" onclick="runThread()">COMPUTE !!!</button>
+            
+    </div>
+    <div id="resultArea">
+        <br><br>
+        <p id="salaryResult"></p>
+    </div>    
+</body>
+</html>
+
+<1--
+<!DOCTYPE html>
+<html>
+<body>
+
+<form id="frm1" action="form_action.asp">
+  First name: <input type="text" name="fname" value="Donald"><br>
+  Last name: <input type="text" name="lname" value="Duck"><br>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>Click the "Try it" button to return the value of each element in the form.</p>
+
+<p id="demo"></p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction()
+{
+var x = document.getElementById("frm1");
+var txt = "";
+for (var i=0;i<x.length;i++)
+  {
+  txt = txt + x.elements[i].value + "<br>";
+  }
+document.getElementById("demo").innerHTML=txt;
+}
+</script>
+
+</body>
+</html>
+
+-->

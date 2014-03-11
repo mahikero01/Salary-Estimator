@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Salary Compute.html</title>
+	<script type="text/javascript" src="js/salary.js" ></script>
+</head>
+<body>    
+    
+    <h1>Salary Compute</h1>
+
+    <div id="inputArea">
+        <form action="" name="frmSalary">
+        
+            <h4>Income Info</h4>
+            <label name="lblHalfMonthBasic" for="txbHalfMonthBasic">Half Month Basic</label>
+			<input type="text" name="txbHalfMonthBasic" id="txbHalfMonthBasic" size="8" maxlength="8" tabindex="1" value="0" onchange="onChangeInput()" />
+            <label name="lblTaxCode" for="selTaxCode">Tax Code</label>
+            <select name="selTaxCode" id="selTaxCode" tabindex="2" onchange="onChangeInput()">
+                <option value="0">Z</option>
+                <option value="1" selected="selected">S / ME</option>
+                <option value="2">ME1 / S1</option>
+                <option value="3">ME2 / S2</option>
+                <option value="4">ME3 / S3</option>
+                <option value="5">ME4 / S4</option>
+            </select>
+            
+            <br />
+            
+			<h4>Work Days</h4>
+            <label name="lblAMA" for="txbAMA">AM A</label>
+			<input type="text" name="txbAMA" id="txbAMA" size="2" maxlength="2" tabindex="7" value="0" onchange="onChangeInput()" />
+            <label name="lblPMA" for="txbPMA">PM A</label>
+			<input type="text" name="txbPMA" id="txbPMA" size="2" maxlength="2" tabindex="8" value="0" onchange="onChangeInput()" />
+			<label name="lblGYA" for="txbGYA">GY A</label>
+			<input type="text" name="txbGYA" id="txbGYA" size="2" maxlength="2" tabindex="9" value="0" onchange="onChangeInput()" />
+            
+            <br />
+            
+            <label name="lblAMB" for="txbAMB">AM B</label>
+			<input type="text" name="txbAMB" id="txbAMB" size="2" maxlength="2" tabindex="10" value="0" onchange="onChangeInput()" />
+			<label name="lblPMB" for="txbPMB">PM B</label>
+			<input type="text" name="txbPMB" id="txbPMB" size="2" maxlength="2" tabindex="11" value="0" onchange="onChangeInput()" />
+			<label name="lblGYB" for="txbGYB">GY B</label>
+			<input type="text" name="txbGYB" id="txbGYB" size="2" maxlength="2" tabindex="12" value="0" onchange="onChangeInput()" />
+            <label id="outTotalWorkDays"> </label>
+            
+            <br />
+            
+			<h4>Rest Days</h4>
+			<label name="lblRDO" for="txbRDO">RDO</label>
+			<input type="text" name="txbRDO" id="txbRDO" size="2" maxlength="2" tabindex="6" value="0" onchange="onChangeInput()" />
+            <label id="outTotalCalendarDays"> </label>
+        
+            <br />
+        
+            <h4>Holiday Duty</h4>
+            <label name="lblLegHol" for="txbLegHol">Legal Holiday (hour/s)</label>
+			<input type="text" name="txbLegHol" id="txbLegHol" size="2" maxlength="2" tabindex="13" value="0" onchange="onChangeInput()" />
+            <label name="lblSplHol" for="txbSplHol">Special Holiday (hour/s)</label>
+			<input type="text" name="txbSplHol" id="txbSplHol" size="2" maxlength="2" tabindex="14" value="0" onchange="onChangeInput()" />
+            
+            <br />
+            
+			<h4>Night Differential Variance</h4>
+            <input type="text" name="txbUnpND" id="txbUnpND" size="2" maxlength="2" tabindex="15" value="0" onchange="onChangeInput()" />
+			<label name="lblUnpND" for="txbUnpND">Unpaid ND from previous month/s(hour/s)  </label>
+           			
+            <br /><br />
+             
+            <label name="lblGYSts" for="radGYSts">Last Day of Month GY Status:</label>
+            <br />   
+            <input type="radio" name="radGYSts" tabindex="16" value="0" checked="checked" onclick="return radGYStsOnClick(0)" />RDO/LV/Not GY Duty(no deduction)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="1" onclick="return radGYStsOnClick(1)" />Duty(-6 hours)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="2" onclick="return radGYStsOnClick(2)" />GY A (-2 hours)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="3" onclick="return radGYStsOnClick(3)" />GY B (-4 hours)<br />
+        </form>      
+    </div>
+    <div id="resultArea">
+        <br /><br />
+        <div id="salaryResult">
+        </div>
+    </div>  
+</body>
+</html>

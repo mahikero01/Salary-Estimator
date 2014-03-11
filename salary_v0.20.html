@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Salary Compute.html</title>
+	<script type="text/javascript">
+        var fltHalfMonthBasic;
+        var intTaxCode
+        var fltAMA;
+        var fltAMB;
+        var fltPMA;
+        var fltPMB;
+        var fltGYA;
+        var fltGYB;
+        var fltLegHol;
+        var fltSplHol;
+        var fltUnpND; 
+        var intGYSts = 0;
+       
+        var fltTotalDays; 
+        var fltTotalRDO;
+        var fltTotalLv;
+        var fltTotalCalendarDays;
+        var fltTotalNDHours;
+        
+        var fltBasicPay;
+        var fltDailyRate;
+        var fltHourlyRate;
+        var fltNDPerHourRate;
+        
+        var arrGYSts = new Array(6,0,2,4);
+
+        
+/*  
+
+        //var fltAMDays;
+        //var fltPMDays;
+       // var fltGYDays;
+ var fltTotalNDHours;
+		//SalaryEstimator Object
+        function SalaryEstimator(){
+            
+            
+            this.fltTotalCalendarDays;
+            
+            
+            this.fltBasicPay;
+            this.fltDailyRate;
+            this.fltHourlyRate;
+            this.fltNDAddPerHour;
+            this.intNDDays;
+            this.intNDType;
+            this.intNDHourAdj;
+            this.intNDTotalHours;
+            this.fltNDTotalCost;
+        }
+        
+        //get input from user and convert to float method
+        SalaryEstimator.prototype.takeInput = function(){
+            var fltHalfBasic;
+            
+            fltHalfBasic = parseFloat(document.getElementById("txbHalfBasic").value);
+            this.fltBasicPay = fltHalfBasic * 2;
+            this.intNDDays = parseInt(document.getElementById("txbNDCount").value);
+            this.intNDType = parseInt(document.getElementById("selNDType").value);
+            this.intNDHourAdj = parseInt(document.getElementById("txbHourAdj").value);;
+        }
+        
+        
+        //ND add per hourl rate compute method
+        SalaryEstimator.prototype.computeNDAddRate = function(){
+            this.fltNDAddPerHour = this.fltHourlyRate * 0.10;
+            this.intNDTotalHours = this.intNDDays * this.intNDType - this.intNDHourAdj;
+            this.fltNDTotalCost = SalaryEstimator.prototype.setDecimal(this.intNDTotalHours * this.fltNDAddPerHour);
+        }
+        
+        
+        
+        
+        //show computed result method
+        SalaryEstimator.prototype.showResult = function(){
+            var tempArray = Array();
+            var innerHTMLTags = " ";
+            
+            tempArray[0] = new Array();    
+            tempArray[0][0] = "Your Daily Rate";
+            tempArray[0][1] = this.fltDailyRate;
+            tempArray[1] = new Array(); 
+            tempArray[1][0] = "Your Hourly Rate";
+            tempArray[1][1] = this.fltHourlyRate;
+            tempArray[2] = new Array(); 
+            tempArray[2][0] = "ND add / hour";
+            tempArray[2][1] = this.fltNDAddPerHour;
+            tempArray[3] = new Array(); 
+            tempArray[3][0] = "Total ND Hours";
+            tempArray[3][1] = this.intNDTotalHours;
+            tempArray[4] = new Array(); 
+            tempArray[4][0] = "Total ND Cost";
+            tempArray[4][1] = this.fltNDTotalCost;
+            
+            
+            innerHTMLTags += "<table border=1>";
+            for(row=0; row<5; row++){
+                innerHTMLTags += "<tr>";
+                for(col=0; col<2; col++){
+                    innerHTMLTags += "<td>" + tempArray[row][col] +"</td>";
+                }    
+                innerHTMLTags += "</tr>";
+            }    
+                
+            innerHTMLTags += "</table>";
+            
+            document.getElementById("salaryResult").innerHTML = innerHTMLTags;
+        }
+
+        //total calendar days
+        SalaryEstimator.prototype.totalCalendarDays = function(){
+            var strTotalDays;
+            
+            this.fltTotalCalendarDays = this.intTotalDays + this.fltTotalRDOAndLV;
+            strTotalDays = "Total Calendar Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalCalendarDays;
+            document.getElementById("outTotalCalendarDays").innerHTML = strTotalDays;
+        }
+        
+        //total Nigth Diff
+        SalaryEstimator.prototype.totalCalendarDays = function(){
+            var strTotalDays;
+            
+            this.fltTotalCalendarDays = this.intTotalDays + this.fltTotalRDOAndLV;
+            strTotalDays = "Total Calendar Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalCalendarDays;
+            document.getElementById("outTotalCalendarDays").innerHTML = strTotalDays;
+        }
+        
+        
+        //runnable thread
+        function runThread() {
+            var objectThread = new SalaryEstimator();
+            
+            SalaryEstimator.prototype.totalWorkDays();
+            SalaryEstimator.prototype.totalRDO();
+            SalaryEstimator.prototype.totalCalendarDays();
+            
+            var test = document.getElementById("radNDPend").value;
+            alert(test);
+            
+            //SalaryEstimator.prototype.takeInput()
+            //SalaryEstimator.prototype.computeDailyRate();
+            //SalaryEstimator.prototype.computeHourlyRate();
+            //SalaryEstimator.prototype.computeNDAddRate();
+            //SalaryEstimator.prototype.showResult();
+           
+        } 
+        
+        function testRun() {
+           
+            
+            //testArray2[0] = document.frmSalary.selTaxCode.value;
+           
+            alert(testArray2[0]);
+            alert(testArray2[1]);
+        }*/
+        
+        
+        
+        
+        
+        
+        //total work days 
+        function totalWorkDays(){
+            var strTotalDays;
+            
+            //fltAMDays = parseFloat(document.frmSalary.txbAM.value);
+            //fltPMDays = parseFloat(document.frmSalary.txbPM.value);
+            //fltGYDays = parseFloat(document.frmSalary.txbGY.value);
+            fltTotalDays = fltAMDays + fltPMDays + fltGYDays;  
+            strTotalDays = "=&nbsp;&nbsp;";
+            strTotalDays += this.fltTotalDays;
+            document.frmSalary.outTotalWorkDays.innerHTML = strTotalDays;
+        }
+        
+        //total rdo and leave
+        function totalRDOAndLV(){
+            var strTotalDays;
+            
+            fltTotalRDO = parseFloat(document.frmSalary.txbRDO.value);
+            fltAMALv = parseFloat(document.frmSalary.txbAMA.value);
+            fltAMBLv = parseFloat(document.frmSalary.txbAMB.value);
+            fltPMALv = parseFloat(document.frmSalary.txbPMA.value);
+            fltPMBLv = parseFloat(document.frmSalary.txbPMB.value);
+            fltGYALv = parseFloat(document.frmSalary.txbGYA.value);
+            fltGYBLv = parseFloat(document.frmSalary.txbGYB.value);
+            fltTotalLv = + fltAMALv + fltAMBLv + fltPMALv + fltPMBLv + fltGYALv + fltGYBLv;
+            fltTotalLv /= 2;
+            strTotalDays = "=&nbsp;&nbsp;&nbsp;";
+            strTotalDays += fltTotalLv;  
+            document.frmSalary.outTotalLVDays.innerHTML = strTotalDays;
+        }
+        
+        //total all ND hours
+        function totalNDHours(){
+            fltTotalNDHours = fltGYDays * 8;
+            fltTotalNDHours += fltAMDays;
+            fltTotalNDHours += fltUnpND;
+            fltTotalNDHours -= arrGYSts[intGYSts];
+        }
+        
+        
+        //total all days RDO,LV and Work
+        function totalCalendarDays(){
+            var strTotalDays;
+            
+            fltTotalCalendarDays = fltTotalDays + fltTotalRDO + fltTotalLv;
+            strTotalDays = "Total Calendar Days&nbsp;&nbsp;&nbsp;";
+            strTotalDays += fltTotalCalendarDays;  
+            document.frmSalary.outTotalCalendarDays.innerHTML = strTotalDays;
+        }
+        
+        //run all auto function when changes made on days, rdo and leave
+        function runAllTotalDays(){
+            totalWorkDays();
+            totalRDOAndLV();
+            totalCalendarDays();
+        }
+        
+        //check which radio button GY status selected
+        function radGYStsOnClick(radIndex) {
+            var bolReturnValue = true;
+            
+            intGYSts = radIndex;
+            
+            return bolReturnValue;
+        }  
+        
+        //store all user input data
+        function getAllUserInput(){
+            fltHalfMonthBasic = parseFloat(document.frmSalary.txbHalfMonthBasic.value);
+            fltBasicPay = fltHalfMonthBasic * 2;
+            intTaxCode = parseFloat(document.frmSalary.selTaxCode.value);
+            totalWorkDays();
+            totalRDOAndLV();
+            totalCalendarDays();
+            fltLegHol = parseFloat(document.frmSalary.txbLegHol.value);
+            fltSplHol = parseFloat(document.frmSalary.txbSplHol.value);
+            fltUnpND = parseFloat(document.frmSalary.txbUnpND.value);
+            intGYSts = parseInt(intGYSts);
+            totalNDHours();
+        }
+        
+        //set up decimal to 2
+        function setDecimal(fltParValue){
+            var fltValue;
+            
+            fltValue = Math.round(fltParValue*100) / 100;
+            
+            return fltValue;     
+        }
+        
+        //compute monthly income
+        function computeMonthlyRate(){
+            fltBasicPay = fltHalfMonthBasic * 2;
+        }
+        
+        //daily rate compute method
+        function computeDailyRate(){
+            fltDailyRate = setDecimal(fltBasicPay * 12 / 261);
+        }
+
+        //hourly rate compute method
+        function computeHourlyRate(){
+            fltHourlyRate = setDecimal(fltDailyRate / 8);
+        }
+        
+        //ND per hour compute
+        function computeNDPerHourRate(){
+            fltNDPerHourRate = fltHourlyRate * 0.10;
+        }
+        
+        function computeAll(){
+            computeMonthlyRate();
+            computeDailyRate();
+            computeHourlyRate();
+            computeNDPerHourRate();
+        }
+        
+        
+        //submit data for processing
+        function submitAllData(){
+            getAllUserInput();
+            computeAll();
+            displayOut();
+        }
+        
+        //Debugging purpose function
+        function displayOut() {
+            var stringValue = " "
+            
+            /*stringValue += fltHalfMonthBasic + ",";
+            stringValue += fltBasicPay + ",";
+            stringValue += intTaxCode + ",";
+            stringValue += fltAMDays + ",";
+            stringValue += fltPMDays + ",";
+            stringValue += fltGYDays + ",";
+            stringValue += fltTotalDays + ",";
+            stringValue += fltUnpND + ",";
+            stringValue += intGYSts + ",";
+            stringValue = fltHourlyRate + ",";
+            stringValue += fltNDPerHourRate;
+            */
+            
+            stringValue += fltTotalNDHours;
+            alert(stringValue);
+        }
+	</script>
+</head>
+    <h1>Salary Compute</h1>
+<body>
+    <div id="inputArea">
+        <form action="" name="frmSalary">
+        
+            <h4>Income Info</h4>
+            <label name="lblHalfMonthBasic" for="txbHalfMonthBasic">Half Month Basic</label>
+			<input type="text" name="txbHalfMonthBasic" id="txbHalfMonthBasic" size="8" maxlength="8" tabindex="1" value="0" />
+            <label name="lblTaxCode" for="selTaxCode">Tax Code</label>
+            <select name="selTaxCode" id="selTaxCode" tabindex="2">
+                <option value="0">Z</option>
+                <option value="1" selected="selected">S / ME</option>
+                <option value="2">ME1 / S1</option>
+                <option value="3">ME2 / S2</option>
+                <option value="4">ME3 / S3</option>
+                <option value="5">ME4 / S4</option>
+            </select>
+            <output name="outTotalCalendarDays"></output>
+            
+            <br />
+            
+			<h4>Work Days</h4>
+            <label name="lblAMA" for="txbAMA">AM A</label>
+			<input type="text" name="txbAMA" id="txbAMA" size="2" maxlength="2" tabindex="7" value="0" onchange="runAllTotalDays()" />
+            <label name="lblPMA" for="txbPMA">PM A</label>
+			<input type="text" name="txbPMA" id="txbPMA" size="2" maxlength="2" tabindex="8" value="0" onchange="runAllTotalDays()" />
+			<label name="lblGYA" for="txbGYA">GY A</label>
+			<input type="text" name="txbGYA" id="txbGYA" size="2" maxlength="2" tabindex="9" value="0" onchange="runAllTotalDays()" />
+            
+            <br />
+            
+            <label name="lblAMB" for="txbAMB">AM B</label>
+			<input type="text" name="txbAMB" id="txbAMB" size="2" maxlength="2" tabindex="10" value="0" onchange="runAllTotalDays()" />
+			<label name="lblPMB" for="txbPMB">PM B</label>
+			<input type="text" name="txbPMB" id="txbPMB" size="2" maxlength="2" tabindex="11" value="0" onchange="runAllTotalDays()" />
+			<label name="lblGYB" for="txbGYB">GY B</label>
+			<input type="text" name="txbGYB" id="txbGYB" size="2" maxlength="2" tabindex="12" value="0" onchange="runAllTotalDays()" />
+            <output name="outTotalWorkDays"></output>
+            
+            <!--
+            <br /><br /><br />
+            
+            <h4>Leave(VL/SL/EL) Days</h4>
+			<label name="lblAM" for="txbAM">AM</label>
+			<input type="text" name="txbAM" id="txbAM" size="2" maxlength="2" tabindex="3" value="0" onchange="runAllTotalDays()" />
+			<label name="lblPM" for="txbPM">PM</label>
+			<input type="text" name="txbPM" id="txbPM" size="2" maxlength="2" tabindex="4" value="0" onchange="runAllTotalDays()" />
+			<label name="lblGY" for="txbGY">GY</label>
+			<input type="text" name="txbGY" id="txbGY" size="2" maxlength="2" tabindex="5" value="0" onchange="runAllTotalDays()" />
+            <output name="outTotalLVDays"></output>
+            -->
+            
+			<h4>Rest Days</h4>
+			<label name="lblRDO" for="txbRDO">RDO</label>
+			<input type="text" name="txbRDO" id="txbRDO" size="2" maxlength="2" tabindex="6" value="0" onchange="runAllTotalDays()" />
+        
+            <br />
+        
+            <h4>Holiday Duty</h4>
+            <label name="lblLegHol" for="txbLegHol">Legal Holiday</label>
+			<input type="text" name="txbLegHol" id="txbLegHol" size="2" maxlength="2" tabindex="13" value="0" />
+            <label name="lblSplHol" for="txbSplHol">Special Holiday</label>
+			<input type="text" name="txbSplHol" id="txbSplHol" size="2" maxlength="2" tabindex="14" value="0" />
+            
+            <br />
+            
+			<h4>Night Differential Variance</h4>
+            <input type="text" name="txbUnpND" id="txbUnpND" size="2" maxlength="2" tabindex="15" value="0" />
+			<label name="lblUnpND" for="txbUnpND">Unpaid Night Diff</label>
+           			
+            <br /><br />
+             
+            <label name="lblGYSts" for="radGYSts">Last Day of Month GY Status:</label>
+            <br />   
+            <input type="radio" name="radGYSts" tabindex="16" value="0" checked="checked" onclick="return radGYStsOnClick(0)" />Duty(-6)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="1" onclick="return radGYStsOnClick(1)" />RDO/LV/Not GY Duty(0)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="2" onclick="return radGYStsOnClick(2)" />GY A (-2)<br />
+            <input type="radio" name="radGYSts" tabindex="16" value="3" onclick="return radGYStsOnClick(3)" />GY B (-4)<br />
+        
+            <br />
+            
+            <button name="btnCompute" tabindex="17" onclick="submitAllData()">COMPUTE !!!</button>
+        </form>       
+    </div>
+    <div id="resultArea">
+        <br><br>
+        <p id="salaryResult"></p>
+    </div>  
+    
+    
+    <input type="submit" value="COMPUTE !!!" onclick="submitAllData()"/>
+</body>
+</html>

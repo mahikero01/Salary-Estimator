@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Salary Compute.html</title>
+	<script type="text/javascript">
+		function SalaryEstimator(){this.fltBasicPay;this.fltDailyRate;this.fltHourlyRate;this.fltNDAddPerHour;this.intNDDays;this.intNDType;this.intNDHourAdj;this.intNDTotalHours;this.fltNDTotalCost}SalaryEstimator.prototype.takeInput=function(){var a;a=parseFloat(document.getElementById("txbHalfBasic").value);this.fltBasicPay=a*2;this.intNDDays=parseInt(document.getElementById("txbNDCount").value);this.intNDType=parseInt(document.getElementById("selNDType").value);this.intNDHourAdj=parseInt(document.getElementById("txbHourAdj").value)};SalaryEstimator.prototype.computeDailyRate=function(){this.fltDailyRate=SalaryEstimator.prototype.setDecimal(this.fltBasicPay*12/261)};SalaryEstimator.prototype.computeHourlyRate=function(){this.fltHourlyRate=SalaryEstimator.prototype.setDecimal(this.fltDailyRate/8)};SalaryEstimator.prototype.computeNDAddRate=function(){this.fltNDAddPerHour=this.fltHourlyRate*0.1;this.intNDTotalHours=this.intNDDays*this.intNDType-this.intNDHourAdj;this.fltNDTotalCost=SalaryEstimator.prototype.setDecimal(this.intNDTotalHours*this.fltNDAddPerHour)};SalaryEstimator.prototype.setDecimal=function(a){var b;b=Math.round(a*100)/100;return b};SalaryEstimator.prototype.showResult=function(){var a=Array();var b=" ";a[0]=new Array();a[0][0]="Your Daily Rate";a[0][1]=this.fltDailyRate;a[1]=new Array();a[1][0]="Your Hourly Rate";a[1][1]=this.fltHourlyRate;a[2]=new Array();a[2][0]="ND add / hour";a[2][1]=this.fltNDAddPerHour;a[3]=new Array();a[3][0]="Total ND Hours";a[3][1]=this.intNDTotalHours;a[4]=new Array();a[4][0]="Total ND Cost";a[4][1]=this.fltNDTotalCost;b+="<table border=1>";for(row=0;row<5;row++){b+="<tr>";for(col=0;col<2;col++){b+="<td>"+a[row][col]+"</td>"}b+="</tr>"}b+="</table>";document.getElementById("salaryResult").innerHTML=b};function runThread(){var a=new SalaryEstimator();SalaryEstimator.prototype.takeInput();SalaryEstimator.prototype.computeDailyRate();SalaryEstimator.prototype.computeHourlyRate();SalaryEstimator.prototype.computeNDAddRate();SalaryEstimator.prototype.showResult()};
+	</script>
+</head>
+    <h1>Salary Compute</h1>
+<body>
+    <div id="inputArea">
+        <label id="lblHalfBasic" for="txbHalfBasic">Enter Half Month Pay</label>
+        <br>
+        <input type="text"
+               id="txbHalfBasic"
+               size="8"
+               maxlength="8" 
+               tabindex="1"
+               value="0"
+        />
+        <br>
+        <label id="lblNDCount" for="txbNDCount">ND days</label>
+        <br>
+        <input type="text"
+               id="txbNDCount"
+               size="2"
+               maxlength="2" 
+               tabindex="2"
+               value="0"
+        />
+        <label id="lblNDType" for="selNDType">ND Type</label>
+        <select id="selNDType" tabindex="3">
+            <option value="8">8 hours</option>
+            <option value="1">1 hour</option>
+        </select>
+        <label id="lblHourAdj" for="txbHourAdj">Hour Adj</label>
+        <input type="text"
+               id="txbHourAdj"
+               size="1"
+               maxlength="1" 
+               tabindex="4"
+               value="0"
+        />
+        <br><br>
+        <button name="btnCompute" tabindex="5" onclick="runThread()">COMPUTE !!!</button>
+    </div>
+    <div id="resultArea">
+        <br><br>
+        <p id="salaryResult"></p>
+    </div>    
+</body>
+</html>
