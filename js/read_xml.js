@@ -13,7 +13,9 @@ var
 	function getData ( dataSource, divID ) {
 		if ( XMLHttpRequestObject ) {
 			XMLHttpRequestObject.open( "GET", dataSource );
-			var obj = document.getElementById( divID );
+			var 
+				obj = document.getElementById( divID ),
+				index;
 			
 			XMLHttpRequestObject.onreadystatechange = function() {
 				if ( XMLHttpRequestObject.readyState == 4 &&
@@ -21,12 +23,13 @@ var
 					var xmlDocument = XMLHttpRequestObject.responseXML;
 					colors = xmlDocument.getElementsByTagName("color");
 					obj.innerHTML = "Here:<ul>";
-					for () {
-					
+					for ( index = 0; index < colors.length; index++ ) {
+						obj.innerHTML += "<li>" +
+						colors[index].firstChild.data + "</li>";
 					}
+					
+					obj.innerHTML += "</ul>";
 				}
 			};
-			
-			
 		}
 	}
