@@ -2,14 +2,47 @@
 <html>
 <head>
 	<title>XML import</title>
-	<script src="js/read_xml.js"> </script>		
+	<script type="text/javascript"> 
+function getDocument() {
+	var XMLHttpRequestObject = false;
+
+	if ( window.XMLHttpRequest ) {
+		//IE7+, Firefox, Chrome, Opera, Safari
+		XMLHttpRequestObject = new XMLHttpRequest();
+		XMLHttpRequestObject.overrideMimeType("text/xml");
+	} else {
+		//IE 6 below
+		XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	
+	if ( XMLHttpRequestObject ) {
+		
+		XMLHttpRequestObject.onreadystatechange = function() {
+			if ( XMLHttpRequestObject.readyState == 4 &&
+					XMLHttpRequestObject.status == 200 ) {
+				var 
+					xmlDocument = XMLHttpRequestObject.responseXML,
+					documentElement = xmlDocument.documentElement;
+				if ( documentElement ) {
+					document.getElementById("targetDiv").innerHTML =
+					"Document &lt;" +
+					documentElement.nodeName + ">";
+				}
+			}		
+		};
+	}
+	XMLHttpRequestObject.open( "GET", "party.xml", true);
+}
+	</script>		
 </head>
 
 <body>
 		<form>
-			<input type="button" value="Get"  onclick=" />
-			
+			<input type="button" value="Get document"  onclick="getDocument()" />
 		</form>
 		
+		<div id="targetDiv" width="100" height="100">
+			result
+		</div>
 </body>
 </html>

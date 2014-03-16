@@ -1,35 +1,35 @@
-var 
-	dateStatus,
-	XMLHttpRequestObject = false;
+/*jslint browser : true, continue : true,
+devel : true, indent : 2, maxerr : 50,
+newcap : true, nomen : true, plusplus : true,
+regexp : true, sloppy : true, vars : false,
+white : true
+*/
+function getDocument() {
+	var XMLHttpRequestObject = false;
 
 	if ( window.XMLHttpRequest ) {
 		//IE7+, Firefox, Chrome, Opera, Safari
 		XMLHttpRequestObject = new XMLHttpRequest();
+		XMLHttpRequestObject.overrideMimeType("text/xml");
 	} else {
 		//IE 6 below
 		XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
-	function getData ( dataSource, divID ) {
-		if ( XMLHttpRequestObject ) {
-			XMLHttpRequestObject.open( "GET", dataSource );
-			var 
-				obj = document.getElementById( divID ),
-				index;
-			
-			XMLHttpRequestObject.onreadystatechange = function() {
-				if ( XMLHttpRequestObject.readyState == 4 &&
-						XMLHttpRequestObject.status == 200 ) {
-					var xmlDocument = XMLHttpRequestObject.responseXML;
-					colors = xmlDocument.getElementsByTagName("color");
-					obj.innerHTML = "Here:<ul>";
-					for ( index = 0; index < colors.length; index++ ) {
-						obj.innerHTML += "<li>" +
-						colors[index].firstChild.data + "</li>";
-					}
-					
-					obj.innerHTML += "</ul>";
+	if ( XMLHttpRequestObject ) {
+		XMLHttpRequestObject.open( "GET", "party.xml", true );
+		XMLHttpRequestObject.onreadystatechange = function() {
+			if ( XMLHttpRequestObject.readyState == 4 &&
+					XMLHttpRequestObject.status == 200 ) {
+				var 
+					xmlDocument = XMLHttpRequestObject.responseXML,
+					documentElement = xmlDocument.documentElement;
+				if ( documentElement ) {
+					document.getElementById("targetDiv").innerHTML =
+					"Document &lt;" +
+					documentElement.nodeName + ">";
 				}
-			};
-		}
+			}		
+		};
 	}
+}
