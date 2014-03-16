@@ -3,20 +3,20 @@
 <head>
 	<title>XML import</title>
 	<script type="text/javascript"> 
-function getDocument() {
+function getDocument(url) {
 	var XMLHttpRequestObject = false;
 
 	if ( window.XMLHttpRequest ) {
 		//IE7+, Firefox, Chrome, Opera, Safari
 		XMLHttpRequestObject = new XMLHttpRequest();
-		XMLHttpRequestObject.overrideMimeType("text/xml");
+		//XMLHttpRequestObject.overrideMimeType("text/xml");
 	} else {
 		//IE 6 below
 		XMLHttpRequestObject = new ActiveXObject("Microsoft.XMLHTTP");
 	}
 	
 	if ( XMLHttpRequestObject ) {
-		
+		XMLHttpRequestObject.open( "GET", url, true);
 		XMLHttpRequestObject.onreadystatechange = function() {
 			if ( XMLHttpRequestObject.readyState == 4 &&
 					XMLHttpRequestObject.status == 200 ) {
@@ -31,14 +31,14 @@ function getDocument() {
 			}		
 		};
 	}
-	XMLHttpRequestObject.open( "GET", "party.xml", true);
+	
 }
 	</script>		
 </head>
 
 <body>
 		<form>
-			<input type="button" value="Get document"  onclick="getDocument()" />
+			<input type="button" value="Get document"  onclick="getDocument('party.xml')" />
 		</form>
 		
 		<div id="targetDiv" width="100" height="100">

@@ -17,7 +17,7 @@ function getDocument() {
 	}
 	
 	if ( XMLHttpRequestObject ) {
-		XMLHttpRequestObject.open( "GET", "party.xml", true );
+		XMLHttpRequestObject.open( "GET", "e:\party.xml", true );
 		XMLHttpRequestObject.onreadystatechange = function() {
 			if ( XMLHttpRequestObject.readyState == 4 &&
 					XMLHttpRequestObject.status == 200 ) {
